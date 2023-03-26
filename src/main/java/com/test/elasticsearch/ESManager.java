@@ -30,8 +30,8 @@ public class ESManager {
 
     public ElasticsearchClient initClient() {
         try {
-            Path trustStorePath = Paths.get("/Users/suresh/Documents/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
-            Path keyStorePath = Paths.get("/Users/suresh/Documents/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
+            Path trustStorePath = Paths.get("/Users/suresh.ghatuwa/Documents/ES/train/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
+            Path keyStorePath = Paths.get("/Users/suresh.ghatuwa/Documents/ES/train/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
             KeyStore trustStore = KeyStore.getInstance("pkcs12");
             KeyStore keyStore = KeyStore.getInstance("pkcs12");
             try (InputStream is = Files.newInputStream(trustStorePath)) {
