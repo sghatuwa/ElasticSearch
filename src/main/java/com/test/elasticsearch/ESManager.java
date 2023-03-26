@@ -30,20 +30,33 @@ public class ESManager {
 
     public ElasticsearchClient initClient() {
         try {
-            Path trustStorePath = Paths.get("/Users/suresh.ghatuwa/Documents/ES/train/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
-            Path keyStorePath = Paths.get("/Users/suresh.ghatuwa/Documents/ES/train/elasticsearch-8.5.3/config/certs/elastic-certificates.p12");
+            /*Path trustStorePath = Paths.get("/home/anish/es-training/elasticsearch-8.6.1/config/certs/http.p12");
+            Path keyStorePath = Paths.get("/home/anish/es-training/elasticsearch-8.6.1/config/certs/http.p12");
             KeyStore trustStore = KeyStore.getInstance("pkcs12");
             KeyStore keyStore = KeyStore.getInstance("pkcs12");
             try (InputStream is = Files.newInputStream(trustStorePath)) {
-                trustStore.load(is, "1234".toCharArray());
+                trustStore.load(is, "elastic".toCharArray());
             }
             try (InputStream is = Files.newInputStream(keyStorePath)) {
-                keyStore.load(is, "1234".toCharArray());
+                keyStore.load(is, "elastic".toCharArray());
             }
             SSLContextBuilder sslBuilder = SSLContexts.custom()
                     .loadTrustMaterial(trustStore, null)
-                    .loadKeyMaterial(keyStore, "1234".toCharArray());
-            final SSLContext sslContext = sslBuilder.build();
+                    .loadKeyMaterial(keyStore, "elastic".toCharArray());
+            final SSLContext sslContext = sslBuilder.build();*/
+
+            /*
+                // run this command line to generate cacerts for java for default certificate of ES in local
+                openssl s_client -showcerts -connect localhost:9200 </dev/null | openssl x509 -outform PEM > elasticsearch.crt
+                keytool -import -file elasticsearch.crt -alias elasticsearch -keystore cacerts
+             */
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            KeyStore truststore = KeyStore.getInstance("JKS");
+            truststore.load(new FileInputStream("/home/user/es-training/elasticsearch-8.6.1/bin/cacerts"), "changeit".toCharArray()); // Replace with your actual truststore file path and password
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(truststore);
+            sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
 
             final CredentialsProvider credentialsProvider =
                     new BasicCredentialsProvider();
