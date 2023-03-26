@@ -1,8 +1,8 @@
-#ES Dependency
+# ES Dependency
 co.elastic.clients:elasticsearch-java:8.6.0
 * For Connecting ES 8.x from java API, Please create own ES certificate with password for keystore and truststore.
 
-##ESManager.java
+## ESManager.java
 * File for initializing ES Client with keystore and truststore key and password with ES Credentials.
 
 ## Query Sample
